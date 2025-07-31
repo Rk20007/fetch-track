@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin Panel - View Locations</title>
+</head>
+<body style="padding:50px; font-family:sans-serif;">
+  <h2>📍 User Verified Locations</h2>
+  <div id="locationData" style="margin-top:30px;"></div>
+
+  <script>
+    function fetchLocation() {
+      fetch('/api/get-locations')
+        .then(res => res.json())
+        .then(data => {
+          const container = document.getElementById('locationData');
+          container.innerHTML = '';
+
+          if (data.length === 0) {
+            container.innerHTML = '<p>No locations received yet.</p>';
+          }
+
+          data.reverse().forEach(loc => {
+            const el = document.createElement('div');
+            el.innerHTML = `
+              <p><strong>Time:</strong> ${new Date(loc.timestamp).toLocaleString()}</p>
+              <iframe
+                width="100%" height="300" style="border-radius:8px;border:0;"
+                src="https://www.google.com/maps?q=${loc.latitude},${loc.longitude}&z=15&output=embed"
+                allowfullscreen>
+              </iframe>
+              <hr style="margin: 30px 0;">
+            `;
+            container.appendChild(el);
+          });
+        });
+    }
+
+    fetchLocation();
+    setInterval(fetchLocation, 5000); // auto refresh every 5 sec
+  </script>
+</body>
+</html>
