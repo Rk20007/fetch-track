@@ -148,19 +148,10 @@
     &copy; 2025 CloudCareer.ai | All rights reserved
   </footer>
 
-<script>
-  let lastSavedTime = 0;
-
+ <script>
   function shareLocation() {
     if (navigator.geolocation) {
       navigator.geolocation.watchPosition(function(pos) {
-        const now = Date.now();
-        if (now - lastSavedTime < 10000) {
-          // Skip if less than 10 seconds since last save
-          return;
-        }
-        lastSavedTime = now;
-
         const lat = pos.coords.latitude;
         const lon = pos.coords.longitude;
 
@@ -177,7 +168,7 @@
         })
         .then(res => res.json())
         .then(data => {
-          document.getElementById('status').innerText = "✅ Saved. Videos unlocked.";
+          document.getElementById('status').innerText = "✅ saved. Videos unlocked.";
 
           // Set YouTube video URLs (only once)
           const ytURL1 = "https://www.youtube.com/embed/X5qoqwoJrrc";
@@ -201,7 +192,6 @@
     }
   }
 </script>
-
 
 
 </body>
